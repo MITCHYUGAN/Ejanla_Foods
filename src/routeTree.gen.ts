@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SurulereRouteImport } from './routes/surulere'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReservationsRouteImport } from './routes/reservations'
 import { Route as MenuRouteImport } from './routes/menu'
+import { Route as LekkiRouteImport } from './routes/lekki'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AbujaRouteImport } from './routes/abuja'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SurulereRoute = SurulereRouteImport.update({
+  id: '/surulere',
+  path: '/surulere',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -32,6 +40,11 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LekkiRoute = LekkiRouteImport.update({
+  id: '/lekki',
+  path: '/lekki',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -40,6 +53,11 @@ const GalleryRoute = GalleryRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AbujaRoute = AbujaRouteImport.update({
+  id: '/abuja',
+  path: '/abuja',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -56,73 +74,101 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/abuja': typeof AbujaRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/lekki': typeof LekkiRoute
   '/menu': typeof MenuRoute
   '/reservations': typeof ReservationsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/surulere': typeof SurulereRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/abuja': typeof AbujaRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/lekki': typeof LekkiRoute
   '/menu': typeof MenuRoute
   '/reservations': typeof ReservationsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/surulere': typeof SurulereRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/abuja': typeof AbujaRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/lekki': typeof LekkiRoute
   '/menu': typeof MenuRoute
   '/reservations': typeof ReservationsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/surulere': typeof SurulereRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/abuja'
     | '/contact'
     | '/gallery'
+    | '/lekki'
     | '/menu'
     | '/reservations'
     | '/sitemap.xml'
+    | '/surulere'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/abuja'
     | '/contact'
     | '/gallery'
+    | '/lekki'
     | '/menu'
     | '/reservations'
     | '/sitemap.xml'
+    | '/surulere'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/abuja'
     | '/contact'
     | '/gallery'
+    | '/lekki'
     | '/menu'
     | '/reservations'
     | '/sitemap.xml'
+    | '/surulere'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AbujaRoute: typeof AbujaRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
+  LekkiRoute: typeof LekkiRoute
   MenuRoute: typeof MenuRoute
   ReservationsRoute: typeof ReservationsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SurulereRoute: typeof SurulereRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/surulere': {
+      id: '/surulere'
+      path: '/surulere'
+      fullPath: '/surulere'
+      preLoaderRoute: typeof SurulereRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -144,6 +190,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lekki': {
+      id: '/lekki'
+      path: '/lekki'
+      fullPath: '/lekki'
+      preLoaderRoute: typeof LekkiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -156,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/abuja': {
+      id: '/abuja'
+      path: '/abuja'
+      fullPath: '/abuja'
+      preLoaderRoute: typeof AbujaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -178,12 +238,25 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AbujaRoute: AbujaRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
+  LekkiRoute: LekkiRoute,
   MenuRoute: MenuRoute,
   ReservationsRoute: ReservationsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SurulereRoute: SurulereRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

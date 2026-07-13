@@ -24,7 +24,7 @@ export const Route = createFileRoute("/menu")({
 });
 
 
-type Item = { name: string; desc?: string; price: string };
+type Item = { name: string; desc?: string; price: string; popular?: boolean };
 type Section = { id: string; title: string; blurb?: string; hero?: string; items: Item[] };
 
 const menu: Section[] = [
@@ -34,7 +34,7 @@ const menu: Section[] = [
     blurb: "Charcoal grilled to order. Served with fries, coleslaw and our house pepper sauce.",
     hero: heroImg,
     items: [
-      { name: "Grilled Croaker Fish", desc: "Charcoal grilled Croaker served with fries, coleslaw, pepper sauce", price: "₦18,000" },
+      { name: "Grilled Croaker Fish", desc: "Charcoal grilled Croaker served with fries, coleslaw, pepper sauce", price: "₦18,000", popular: true },
       { name: "Tasty Grilled Catfish", desc: "Direct flame grilled catfish, fries, coleslaw, pepper sauce", price: "₦15,000" },
       { name: "Juicy Steamed Catfish", desc: "Steamed catfish in foil paper, fries, coleslaw, pepper sauce", price: "₦15,000" },
       { name: "Grilled Tilapia", desc: "Charcoal grilled Tilapia, fries, coleslaw, pepper sauce", price: "₦14,000" },

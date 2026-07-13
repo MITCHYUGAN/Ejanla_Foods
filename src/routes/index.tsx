@@ -533,3 +533,69 @@ function ReserveCTA() {
     </section>
   );
 }
+
+/* ------------------------------------------------------------- FAQ -- */
+function FAQ() {
+  const faqs = [
+    {
+      q: "Do you take reservations?",
+      a: "Yes. You can book a table directly on our website or WhatsApp us on 0707 246 6058 for the Lekki branch. We recommend booking ahead for groups of 5 or more.",
+    },
+    {
+      q: "Do you offer delivery?",
+      a: "Yes, we deliver. Contact your nearest branch directly on WhatsApp to place a delivery order. Lekki: 0707 246 6058, Surulere: 0703 241 8505, Abuja: 0705 416 8090.",
+    },
+    {
+      q: "Can I celebrate a birthday at Ejanla?",
+      a: "Absolutely. We host birthday celebrations regularly and can arrange special setups including the Royale Platter, decorations and the full bar. Contact us to discuss your occasion.",
+    },
+    {
+      q: "Do you cater for events and weddings?",
+      a: "Yes. We offer full catering packages including platters, small chops, seafood and bar service for private events, corporate functions, weddings and owambes. Fill the catering form on our Reservations page.",
+    },
+    {
+      q: "Is there parking available?",
+      a: "Yes, free parking is available at our Lekki branch.",
+    },
+    {
+      q: "Do you serve alcohol?",
+      a: "Yes. We have a full bar including cocktails, mocktails, beer, wine, cognac, whiskey and our signature Arabian Tea.",
+    },
+    {
+      q: "What fish do you serve?",
+      a: "We specialise in charcoal grilled croaker fish, catfish and tilapia, plus grilled prawns and seafood platters. All grills are served with fries, coleslaw and our house pepper sauce.",
+    },
+    {
+      q: "What are your opening hours?",
+      a: "All branches are open daily from 10am to 12 midnight.",
+    },
+  ];
+
+  return (
+    <section className="py-24 lg:py-32 bg-white">
+      <div className="container-x">
+        <div className="max-w-2xl mb-14">
+          <div className="eyebrow mb-4">FAQ</div>
+          <h2 className="font-display text-4xl md:text-6xl">
+            Common <span className="italic text-brand-red">questions</span>.
+          </h2>
+        </div>
+        <div className="max-w-3xl">
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((f, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border-line">
+                <AccordionTrigger className="font-display text-left text-lg md:text-xl py-6 hover:no-underline [&[data-state=open]>svg]:text-brand-red [&>svg]:text-brand-red">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-ink-soft leading-relaxed text-base pb-6">
+                  {f.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+}
+

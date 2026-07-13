@@ -47,7 +47,7 @@ const menu: Section[] = [
     blurb: "Feasts for the table — from date-night to the whole family.",
     hero: royale,
     items: [
-      { name: "Ejanla Royale Platter", desc: "Croaker, catfish, tilapia, prawns, chicken suya, turkey, samosas, spring rolls, puff puff, jollof, seafood fried rice, plantain, coleslaw, fruit & wine", price: "₦150,000" },
+      { name: "Ejanla Royale Platter", desc: "Croaker, catfish, tilapia, prawns, chicken suya, turkey, samosas, spring rolls, puff puff, jollof, seafood fried rice, plantain, coleslaw, fruit & wine", price: "₦150,000", popular: true },
       { name: "Seafood Boil", desc: "Crab, prawns, boiled egg, Irish potatoes and sausage with jollof & seafood fried rice", price: "₦50,000" },
       { name: "Ejanla Rice Combo", desc: "Seafood, fried, jollof, native rice with plantain, coleslaw, chicken, hake fish & turkey", price: "₦20,000" },
       { name: "Self-Love Platter", desc: "6 samosas, 2 spring rolls, 8 puffy, fries, coleslaw, chicken, hake fish, turkey", price: "₦20,000" },
@@ -63,7 +63,7 @@ const menu: Section[] = [
     blurb: "Spicy, tasty broth served hot with yam and plantain.",
     hero: pepper,
     items: [
-      { name: "Catfish Pepper Soup", price: "₦14,000" },
+      { name: "Catfish Pepper Soup", price: "₦14,000", popular: true },
       { name: "Croaker Fish Pepper Soup", price: "₦16,000" },
       { name: "Tilapia Fish Pepper Soup", price: "₦13,000" },
       { name: "Turkey Pepper Soup", price: "₦12,000" },
@@ -119,7 +119,7 @@ const menu: Section[] = [
     items: [
       { name: "Ejanla Special Mocktail", price: "₦8,000" },
       { name: "Virgin Mojito", price: "₦8,000" },
-      { name: "Chapman", price: "₦8,000" },
+      { name: "Chapman", price: "₦8,000", popular: true },
       { name: "Fruit Punch", price: "₦8,000" },
       { name: "Watermelon Daiquiri", price: "₦8,000" },
       { name: "Ejanla Special Smoothie", price: "₦12,000" },

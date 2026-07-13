@@ -13,15 +13,16 @@ import jollof from "@/assets/jollof-plate.jpg";
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Menu — Ejanla Foods | Grills, Pepper Soup, Platters & Cocktails" },
+      { title: "Menu & Prices | Ejanla Foods Seafood Restaurant Lagos" },
       { name: "description", content: "Explore Ejanla's full menu: charcoal grilled croaker, catfish and prawns, pepper soup, royale platters, small chops, cocktails and premium spirits." },
-      { property: "og:title", content: "Ejanla Foods Menu" },
+      { property: "og:title", content: "Menu & Prices | Ejanla Foods Seafood Restaurant Lagos" },
       { property: "og:description", content: "Grills, platters, pepper soup, cocktails and more." },
       { property: "og:image", content: royale },
     ],
   }),
   component: MenuPage,
 });
+
 
 type Item = { name: string; desc?: string; price: string };
 type Section = { id: string; title: string; blurb?: string; hero?: string; items: Item[] };

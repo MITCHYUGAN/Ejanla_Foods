@@ -8,15 +8,16 @@ import celebration from "@/assets/celebration.jpg";
 export const Route = createFileRoute("/reservations")({
   head: () => ({
     meta: [
-      { title: "Reservations & Catering — Ejanla Foods" },
+      { title: "Book a Table or Catering | Ejanla Foods Lagos" },
       { name: "description", content: "Book a table, plan a private event, or request catering for weddings, birthdays and corporate dinners at Ejanla Foods." },
-      { property: "og:title", content: "Reserve & Cater with Ejanla" },
+      { property: "og:title", content: "Book a Table or Catering | Ejanla Foods Lagos" },
       { property: "og:description", content: "Table bookings, private events and full-service catering." },
       { property: "og:image", content: celebration },
     ],
   }),
   component: ReservationsPage,
 });
+
 
 const occasions = [
   { icon: Users, title: "Group Dining", body: "Big table, big fish, no stress." },

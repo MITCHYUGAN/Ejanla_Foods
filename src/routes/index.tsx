@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Flame, Fish, Users, Sparkles, Star, Instagram } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 
 import heroImg from "@/assets/hero-grilled-fish.jpg";
 import royalePlatter from "@/assets/royale-platter.jpg";
@@ -18,16 +25,59 @@ import pepperSauce from "@/assets/pepper-sauce.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ejanla Foods — The Big Fish Place | Premium Seafood in Lagos & Abuja" },
-      { name: "description", content: "Nigeria's premium seafood destination. Charcoal grilled fish, royale platters, pepper soup and cocktails. Dine-in, takeaway & delivery in Lekki, Surulere and Abuja." },
-      { property: "og:title", content: "Ejanla Foods — The Big Fish Place" },
-      { property: "og:description", content: "Premium grilled seafood, family platters, cocktails. Vibrant Nigerian hospitality." },
+      { title: "Ejanla Foods | Best Grilled Fish & Seafood Restaurant in Lekki Lagos" },
+      { name: "description", content: "Premium charcoal grilled seafood restaurant in Lekki, Surulere and Abuja. Grilled croaker, catfish, pepper soup, family platters, cocktails and birthday dining. Open daily until 12am." },
+      { property: "og:title", content: "Ejanla Foods | Best Grilled Fish & Seafood Restaurant in Lekki Lagos" },
+      { property: "og:description", content: "Premium charcoal grilled seafood restaurant in Lekki, Surulere and Abuja. Open daily until 12am." },
       { property: "og:image", content: heroImg },
       { name: "twitter:image", content: heroImg },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: "Ejanla Foods",
+          description:
+            "Premium charcoal grilled seafood restaurant in Lagos. Known for grilled croaker fish, catfish pepper soup, seafood platters, family dining and birthday celebrations.",
+          url: "https://ejanla.ng",
+          telephone: "+2347072466058",
+          priceRange: "₦₦₦",
+          servesCuisine: ["Nigerian", "Seafood", "African"],
+          hasMenu: "https://ejanla.ng/menu",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "40 Fola Osibo Road",
+            addressLocality: "Lekki Phase I",
+            addressRegion: "Lagos",
+            addressCountry: "NG",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 6.4281,
+            longitude: 3.4219,
+          },
+          openingHours: "Mo-Su 10:00-00:00",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.8",
+            reviewCount: "76",
+          },
+          amenityFeature: [
+            "Parking",
+            "Live Music",
+            "Birthday Celebrations",
+            "Group Dining",
+            "Catering",
+          ],
+        }),
+      },
     ],
   }),
   component: Home,
 });
+
 
 function Home() {
   return (
@@ -38,6 +88,7 @@ function Home() {
       <Signature />
       <WhyEjanla />
       <Testimonials />
+      <FAQ />
       <GalleryPreview />
       <Instafeed />
       <NewsEvents />
@@ -61,8 +112,9 @@ function Hero() {
               <span className="italic text-brand-red">Fish</span> Place.
             </h1>
             <p className="mt-8 max-w-xl text-lg text-ink-soft leading-relaxed">
-              Premium charcoal grilled seafood, royale family platters and vibrant
-              Nigerian hospitality — served across Lekki, Surulere and Abuja.
+              Lagos' home of charcoal grilled croaker fish, catfish pepper soup and
+              seafood platters. Family dining, birthday celebrations and catering —
+              across Lekki, Surulere and Abuja. Open daily until midnight.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <a href="https://glovoapp.com" target="_blank" rel="noreferrer" className="btn-primary">

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "../../assets/logo.jpg";
 
 const links = [
   { to: "/", label: "Home" },
@@ -30,7 +31,7 @@ export function Nav() {
     >
       <div className="container-x flex items-center justify-between py-4">
         <Link to="/" className="flex items-center gap-2 group z-10" onClick={() => setOpen(false)}>
-          <img src="/src/assets/logo.jpg" alt="" className="w-[50px]" />
+          <img src={logo} alt="" className="w-[50px]" />
           <span className="font-display text-base font-extrabold tracking-tight text-[30px]">
             Ejanla<span className="text-brand-red">.</span>
           </span>

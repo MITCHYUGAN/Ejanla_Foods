@@ -25,17 +25,13 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-white/85 backdrop-blur-xl border-b border-line"
-          : "bg-transparent"
+        scrolled ? "bg-white/85 backdrop-blur-xl border-b border-line" : "bg-transparent"
       }`}
     >
       <div className="container-x flex items-center justify-between py-4">
-        <Link to="/" className="flex items-center gap-2 group" onClick={() => setOpen(false)}>
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-ink text-paper font-display text-sm">
-            EJ
-          </span>
-          <span className="font-display text-base tracking-tight">
+        <Link to="/" className="flex items-center gap-2 group z-10" onClick={() => setOpen(false)}>
+          <img src="/src/assets/logo.jpg" alt="" className="w-[50px]" />
+          <span className="font-display text-base font-extrabold tracking-tight text-[30px]">
             Ejanla<span className="text-brand-red">.</span>
           </span>
         </Link>

@@ -8,15 +8,16 @@ import royale from "@/assets/royale-platter.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Ejanla Foods | Our Story, The Big Fish Place" },
+      { title: "Our Story | Ejanla Foods — The Big Fish Place Lagos" },
       { name: "description", content: "The story of Ejanla Foods — Nigeria's premium seafood restaurant. Charcoal grilling, family hospitality and three branches across Lagos and Abuja." },
-      { property: "og:title", content: "About Ejanla Foods" },
+      { property: "og:title", content: "Our Story | Ejanla Foods — The Big Fish Place Lagos" },
       { property: "og:description", content: "Our story, our craft, our people." },
       { property: "og:image", content: chef },
     ],
   }),
   component: AboutPage,
 });
+
 
 function AboutPage() {
   return (

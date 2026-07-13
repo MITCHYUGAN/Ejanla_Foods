@@ -6,14 +6,15 @@ import { Phone, MessageCircle, MapPin, Clock, Mail, Instagram, Check } from "luc
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Ejanla Foods | Lekki, Surulere & Abuja" },
+      { title: "Contact & Branches | Ejanla Foods Lekki Surulere Abuja" },
       { name: "description", content: "Contact Ejanla Foods — call, WhatsApp or visit us in Lekki, Surulere or Abuja. Open daily until midnight." },
-      { property: "og:title", content: "Contact Ejanla Foods" },
+      { property: "og:title", content: "Contact & Branches | Ejanla Foods Lekki Surulere Abuja" },
       { property: "og:description", content: "Call, WhatsApp or visit us in Lekki, Surulere and Abuja." },
     ],
   }),
   component: ContactPage,
 });
+
 
 const branches = [
   {

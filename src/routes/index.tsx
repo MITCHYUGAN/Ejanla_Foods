@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Flame, Fish, Users, Sparkles, Star, Instagram } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 
 import heroImg from "@/assets/hero-grilled-fish.jpg";
 import royalePlatter from "@/assets/royale-platter.jpg";
@@ -18,16 +25,59 @@ import pepperSauce from "@/assets/pepper-sauce.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ejanla Foods — The Big Fish Place | Premium Seafood in Lagos & Abuja" },
-      { name: "description", content: "Nigeria's premium seafood destination. Charcoal grilled fish, royale platters, pepper soup and cocktails. Dine-in, takeaway & delivery in Lekki, Surulere and Abuja." },
-      { property: "og:title", content: "Ejanla Foods — The Big Fish Place" },
-      { property: "og:description", content: "Premium grilled seafood, family platters, cocktails. Vibrant Nigerian hospitality." },
+      { title: "Ejanla Foods | Best Grilled Fish & Seafood Restaurant in Lekki Lagos" },
+      { name: "description", content: "Premium charcoal grilled seafood restaurant in Lekki, Surulere and Abuja. Grilled croaker, catfish, pepper soup, family platters, cocktails and birthday dining. Open daily until 12am." },
+      { property: "og:title", content: "Ejanla Foods | Best Grilled Fish & Seafood Restaurant in Lekki Lagos" },
+      { property: "og:description", content: "Premium charcoal grilled seafood restaurant in Lekki, Surulere and Abuja. Open daily until 12am." },
       { property: "og:image", content: heroImg },
       { name: "twitter:image", content: heroImg },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: "Ejanla Foods",
+          description:
+            "Premium charcoal grilled seafood restaurant in Lagos. Known for grilled croaker fish, catfish pepper soup, seafood platters, family dining and birthday celebrations.",
+          url: "https://ejanla.ng",
+          telephone: "+2347072466058",
+          priceRange: "₦₦₦",
+          servesCuisine: ["Nigerian", "Seafood", "African"],
+          hasMenu: "https://ejanla.ng/menu",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "40 Fola Osibo Road",
+            addressLocality: "Lekki Phase I",
+            addressRegion: "Lagos",
+            addressCountry: "NG",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 6.4281,
+            longitude: 3.4219,
+          },
+          openingHours: "Mo-Su 10:00-00:00",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.8",
+            reviewCount: "76",
+          },
+          amenityFeature: [
+            "Parking",
+            "Live Music",
+            "Birthday Celebrations",
+            "Group Dining",
+            "Catering",
+          ],
+        }),
+      },
     ],
   }),
   component: Home,
 });
+
 
 function Home() {
   return (
@@ -38,6 +88,7 @@ function Home() {
       <Signature />
       <WhyEjanla />
       <Testimonials />
+      <FAQ />
       <GalleryPreview />
       <Instafeed />
       <NewsEvents />
@@ -61,8 +112,9 @@ function Hero() {
               <span className="italic text-brand-red">Fish</span> Place.
             </h1>
             <p className="mt-8 max-w-xl text-lg text-ink-soft leading-relaxed">
-              Premium charcoal grilled seafood, royale family platters and vibrant
-              Nigerian hospitality — served across Lekki, Surulere and Abuja.
+              Lagos' home of charcoal grilled croaker fish, catfish pepper soup and
+              seafood platters. Family dining, birthday celebrations and catering —
+              across Lekki, Surulere and Abuja. Open daily until midnight.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <a href="https://glovoapp.com" target="_blank" rel="noreferrer" className="btn-primary">
@@ -481,3 +533,69 @@ function ReserveCTA() {
     </section>
   );
 }
+
+/* ------------------------------------------------------------- FAQ -- */
+function FAQ() {
+  const faqs = [
+    {
+      q: "Do you take reservations?",
+      a: "Yes. You can book a table directly on our website or WhatsApp us on 0707 246 6058 for the Lekki branch. We recommend booking ahead for groups of 5 or more.",
+    },
+    {
+      q: "Do you offer delivery?",
+      a: "Yes, we deliver. Contact your nearest branch directly on WhatsApp to place a delivery order. Lekki: 0707 246 6058, Surulere: 0703 241 8505, Abuja: 0705 416 8090.",
+    },
+    {
+      q: "Can I celebrate a birthday at Ejanla?",
+      a: "Absolutely. We host birthday celebrations regularly and can arrange special setups including the Royale Platter, decorations and the full bar. Contact us to discuss your occasion.",
+    },
+    {
+      q: "Do you cater for events and weddings?",
+      a: "Yes. We offer full catering packages including platters, small chops, seafood and bar service for private events, corporate functions, weddings and owambes. Fill the catering form on our Reservations page.",
+    },
+    {
+      q: "Is there parking available?",
+      a: "Yes, free parking is available at our Lekki branch.",
+    },
+    {
+      q: "Do you serve alcohol?",
+      a: "Yes. We have a full bar including cocktails, mocktails, beer, wine, cognac, whiskey and our signature Arabian Tea.",
+    },
+    {
+      q: "What fish do you serve?",
+      a: "We specialise in charcoal grilled croaker fish, catfish and tilapia, plus grilled prawns and seafood platters. All grills are served with fries, coleslaw and our house pepper sauce.",
+    },
+    {
+      q: "What are your opening hours?",
+      a: "All branches are open daily from 10am to 12 midnight.",
+    },
+  ];
+
+  return (
+    <section className="py-24 lg:py-32 bg-white">
+      <div className="container-x">
+        <div className="max-w-2xl mb-14">
+          <div className="eyebrow mb-4">FAQ</div>
+          <h2 className="font-display text-4xl md:text-6xl">
+            Common <span className="italic text-brand-red">questions</span>.
+          </h2>
+        </div>
+        <div className="max-w-3xl">
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((f, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border-line">
+                <AccordionTrigger className="font-display text-left text-lg md:text-xl py-6 hover:no-underline [&[data-state=open]>svg]:text-brand-red [&>svg]:text-brand-red">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-ink-soft leading-relaxed text-base pb-6">
+                  {f.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+}
+

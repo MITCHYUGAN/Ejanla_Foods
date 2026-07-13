@@ -18,15 +18,16 @@ import sauce from "@/assets/pepper-sauce.jpg";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Gallery — Ejanla Foods | Food, Ambience & Moments" },
+      { title: "Gallery | Ejanla Foods — Grilled Fish, Platters & Events Lagos" },
       { name: "description", content: "Step inside Ejanla Foods — food photography, restaurant ambience, celebrations, and highlights from our Instagram and TikTok." },
-      { property: "og:title", content: "Ejanla Gallery" },
+      { property: "og:title", content: "Gallery | Ejanla Foods — Grilled Fish, Platters & Events Lagos" },
       { property: "og:description", content: "Food, ambience and moments from Ejanla Foods." },
       { property: "og:image", content: interior },
     ],
   }),
   component: GalleryPage,
 });
+
 
 const items: { src: string; alt: string; span: string; tag?: string }[] = [
   { src: hero, alt: "Grilled croaker fish", span: "md:col-span-2 md:row-span-2", tag: "Grill" },

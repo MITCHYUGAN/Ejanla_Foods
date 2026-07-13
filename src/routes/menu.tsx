@@ -13,9 +13,9 @@ import jollof from "@/assets/jollof-plate.jpg";
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Menu — Ejanla Foods | Grills, Pepper Soup, Platters & Cocktails" },
+      { title: "Menu & Prices | Ejanla Foods Seafood Restaurant Lagos" },
       { name: "description", content: "Explore Ejanla's full menu: charcoal grilled croaker, catfish and prawns, pepper soup, royale platters, small chops, cocktails and premium spirits." },
-      { property: "og:title", content: "Ejanla Foods Menu" },
+      { property: "og:title", content: "Menu & Prices | Ejanla Foods Seafood Restaurant Lagos" },
       { property: "og:description", content: "Grills, platters, pepper soup, cocktails and more." },
       { property: "og:image", content: royale },
     ],
@@ -23,7 +23,8 @@ export const Route = createFileRoute("/menu")({
   component: MenuPage,
 });
 
-type Item = { name: string; desc?: string; price: string };
+
+type Item = { name: string; desc?: string; price: string; popular?: boolean };
 type Section = { id: string; title: string; blurb?: string; hero?: string; items: Item[] };
 
 const menu: Section[] = [
@@ -33,7 +34,7 @@ const menu: Section[] = [
     blurb: "Charcoal grilled to order. Served with fries, coleslaw and our house pepper sauce.",
     hero: heroImg,
     items: [
-      { name: "Grilled Croaker Fish", desc: "Charcoal grilled Croaker served with fries, coleslaw, pepper sauce", price: "₦18,000" },
+      { name: "Grilled Croaker Fish", desc: "Charcoal grilled Croaker served with fries, coleslaw, pepper sauce", price: "₦18,000", popular: true },
       { name: "Tasty Grilled Catfish", desc: "Direct flame grilled catfish, fries, coleslaw, pepper sauce", price: "₦15,000" },
       { name: "Juicy Steamed Catfish", desc: "Steamed catfish in foil paper, fries, coleslaw, pepper sauce", price: "₦15,000" },
       { name: "Grilled Tilapia", desc: "Charcoal grilled Tilapia, fries, coleslaw, pepper sauce", price: "₦14,000" },
@@ -46,7 +47,7 @@ const menu: Section[] = [
     blurb: "Feasts for the table — from date-night to the whole family.",
     hero: royale,
     items: [
-      { name: "Ejanla Royale Platter", desc: "Croaker, catfish, tilapia, prawns, chicken suya, turkey, samosas, spring rolls, puff puff, jollof, seafood fried rice, plantain, coleslaw, fruit & wine", price: "₦150,000" },
+      { name: "Ejanla Royale Platter", desc: "Croaker, catfish, tilapia, prawns, chicken suya, turkey, samosas, spring rolls, puff puff, jollof, seafood fried rice, plantain, coleslaw, fruit & wine", price: "₦150,000", popular: true },
       { name: "Seafood Boil", desc: "Crab, prawns, boiled egg, Irish potatoes and sausage with jollof & seafood fried rice", price: "₦50,000" },
       { name: "Ejanla Rice Combo", desc: "Seafood, fried, jollof, native rice with plantain, coleslaw, chicken, hake fish & turkey", price: "₦20,000" },
       { name: "Self-Love Platter", desc: "6 samosas, 2 spring rolls, 8 puffy, fries, coleslaw, chicken, hake fish, turkey", price: "₦20,000" },
@@ -62,7 +63,7 @@ const menu: Section[] = [
     blurb: "Spicy, tasty broth served hot with yam and plantain.",
     hero: pepper,
     items: [
-      { name: "Catfish Pepper Soup", price: "₦14,000" },
+      { name: "Catfish Pepper Soup", price: "₦14,000", popular: true },
       { name: "Croaker Fish Pepper Soup", price: "₦16,000" },
       { name: "Tilapia Fish Pepper Soup", price: "₦13,000" },
       { name: "Turkey Pepper Soup", price: "₦12,000" },
@@ -118,7 +119,7 @@ const menu: Section[] = [
     items: [
       { name: "Ejanla Special Mocktail", price: "₦8,000" },
       { name: "Virgin Mojito", price: "₦8,000" },
-      { name: "Chapman", price: "₦8,000" },
+      { name: "Chapman", price: "₦8,000", popular: true },
       { name: "Fruit Punch", price: "₦8,000" },
       { name: "Watermelon Daiquiri", price: "₦8,000" },
       { name: "Ejanla Special Smoothie", price: "₦12,000" },
@@ -175,19 +176,49 @@ const menu: Section[] = [
   },
 ];
 
+type IntentId = "all" | "fish" | "pepper-soup" | "birthday" | "family" | "cocktails" | "budget";
+const intents: { id: IntentId; label: string; test: (i: Item, sid: string) => boolean }[] = [
+  { id: "all", label: "All", test: () => true },
+  {
+    id: "fish",
+    label: "Best Fish",
+    test: (i) => /fish|croaker|catfish|tilapia|prawn|panla|hake/i.test(`${i.name} ${i.desc ?? ""}`),
+  },
+  { id: "pepper-soup", label: "Pepper Soup", test: (_i, sid) => sid === "pepper-soup" },
+  {
+    id: "birthday",
+    label: "Birthday Feast",
+    test: (i) => /royale|seafood boil|rice combo|chicken pack|small chops|self-love|platter/i.test(i.name),
+  },
+  { id: "family", label: "Family Dining", test: (_i, sid) => sid === "platters" || sid === "bowls" },
+  { id: "cocktails", label: "Cocktails", test: (_i, sid) => sid === "cocktails" },
+  {
+    id: "budget",
+    label: "Under ₦20k",
+    test: (i) => {
+      const n = parseInt(i.price.replace(/[^\d]/g, ""), 10);
+      return Number.isFinite(n) && n < 20000;
+    },
+  },
+];
+
 function MenuPage() {
   const [query, setQuery] = useState("");
-  const [active, setActive] = useState<string>("grills");
+  const [intent, setIntent] = useState<IntentId>("all");
+
+  const intentDef = intents.find((x) => x.id === intent)!;
+  const q = query.toLowerCase();
 
   const filtered = menu
     .map((s) => ({
       ...s,
-      items: s.items.filter(
-        (i) =>
-          !query ||
-          i.name.toLowerCase().includes(query.toLowerCase()) ||
-          (i.desc?.toLowerCase().includes(query.toLowerCase()) ?? false)
-      ),
+      items: s.items.filter((i) => {
+        const matchQ =
+          !q ||
+          i.name.toLowerCase().includes(q) ||
+          (i.desc?.toLowerCase().includes(q) ?? false);
+        return matchQ && intentDef.test(i, s.id);
+      }),
     }))
     .filter((s) => s.items.length);
 
@@ -206,7 +237,7 @@ function MenuPage() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-6">
           <div className="relative w-full md:max-w-md">
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-soft" />
             <input
@@ -216,19 +247,26 @@ function MenuPage() {
               className="w-full pl-11 pr-4 py-4 rounded-full bg-paper-warm border border-line focus:outline-none focus:border-ink font-sans text-sm"
             />
           </div>
-          <div className="hidden md:flex overflow-x-auto gap-2">
-            {menu.slice(0, 5).map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                onClick={() => setActive(s.id)}
-                className={`px-4 py-2 rounded-full font-mono-tag border transition-colors ${
-                  active === s.id ? "bg-ink text-paper border-ink" : "border-line hover:border-ink"
-                }`}
-              >
-                {s.title}
-              </a>
-            ))}
+          <div>
+            <div className="text-xs uppercase tracking-widest text-ink-soft mb-3">
+              What are you in the mood for?
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {intents.map((it) => (
+                <button
+                  key={it.id}
+                  type="button"
+                  onClick={() => setIntent(it.id)}
+                  className={`px-4 py-2 rounded-full font-mono-tag border transition-colors ${
+                    intent === it.id
+                      ? "bg-ink text-paper border-ink"
+                      : "border-line hover:border-ink"
+                  }`}
+                >
+                  {it.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -253,7 +291,14 @@ function MenuPage() {
                 {section.items.map((it) => (
                   <li key={it.name} className="py-6 grid grid-cols-[minmax(0,1fr)_auto] gap-6 items-start group hover:bg-paper-warm px-4 -mx-4 rounded-xl transition-colors">
                     <div className="min-w-0">
-                      <div className="font-display text-lg md:text-xl">{it.name}</div>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <div className="font-display text-lg md:text-xl">{it.name}</div>
+                        {it.popular && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono-tag bg-brand-red text-white uppercase tracking-widest">
+                            ★ Most Ordered
+                          </span>
+                        )}
+                      </div>
                       {it.desc && <div className="mt-2 text-sm text-ink-soft leading-relaxed">{it.desc}</div>}
                     </div>
                     <div className="font-display text-base md:text-lg shrink-0 pt-1">{it.price}</div>
@@ -266,11 +311,12 @@ function MenuPage() {
 
         {filtered.length === 0 && (
           <div className="text-center py-24">
-            <div className="font-display text-2xl">Nothing matched "{query}"</div>
-            <p className="text-ink-soft mt-2">Try a different search term.</p>
+            <div className="font-display text-2xl">Nothing matched your filter</div>
+            <p className="text-ink-soft mt-2">Try another search or intent above.</p>
           </div>
         )}
       </div>
     </SiteLayout>
   );
 }
+
